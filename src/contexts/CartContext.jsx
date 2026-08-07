@@ -4,18 +4,27 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  
+
   const [itemAmount, setItemAmount] = useState(0);
+  // total price state
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const total = cart.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.price * currentItem.amount;
+    }, 0);
+    setTotal(total);
+  });
 
   // update item amount
   useEffect(() => {
-    if (cart){
-      const amount = cart.reduce((accumulator, currentItem) =>{
+    if (cart) {
+      const amount = cart.reduce((accumulator, currentItem) => {
         return accumulator + currentItem.amount;
       }, 0);
-      setItemAmount(amount)
+      setItemAmount(amount);
     }
-  })
+  }, [cart]);
 
   // add to cart
   const addToCart = (product, id) => {
@@ -74,10 +83,9 @@ const CartProvider = ({ children }) => {
       setCart(newCart);
     }
 
-    if (cartItem.amount < 2){
-      removeFromCart(id)
+    if (cartItem.amount < 2) {
+      removeFromCart(id);
     }
-    
   };
 
   return (
@@ -90,6 +98,7 @@ const CartProvider = ({ children }) => {
         increaseAmount,
         decreaseAmount,
         itemAmount,
+        total,
       }}
     >
       {children}
