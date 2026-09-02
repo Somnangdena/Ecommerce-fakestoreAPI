@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { cart, clearCart, total, itemAmount } = useContext(CartContext);
   return (
     <div
-      className={`${isOpen ? "right-0" : "-right-full"} w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-8.75 overflow-y-auto`}
+      className={`${isOpen ? "right-0" : "-right-full"} w-full flex flex-col bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20 px-4 lg:px-8.75 overflow-y-auto`}
     >
       <div className="flex items-center justify-between py-6 border-b">
         <div className="uppercase text-sm font-semibold">
@@ -25,7 +25,7 @@ const Sidebar = () => {
           <IoMdArrowForward className="text-2xl" />
         </div>
       </div>
-      <div className="flex flex-col gap-y-2 overflow-y-auto overflow-x-hidden scrollbar-none border-b">
+      <div className="flex flex-col flex-1 gap-y-2 overflow-y-auto overflow-x-hidden scrollbar-none border-b">
         {cart.map((item) => {
           return <CartItem item={item} key={item.id} />;
         })}
